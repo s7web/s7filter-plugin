@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name:     Filter Plugin
  * Plugin URI:      PLUGIN SITE HERE
@@ -10,5 +11,4 @@
  * Version:         0.1.0
  *
  * @package         Filter_Plugin
- *
  */
