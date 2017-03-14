@@ -1,6 +1,6 @@
 <?php
-
 /**
+ *
  * Plugin Name:     Filter Plugin
  * Plugin URI:      PLUGIN SITE HERE
  * Description:     PLUGIN DESCRIPTION HERE
@@ -12,3 +12,5 @@
  *
  * @package         Filter_Plugin
  */
+
+$test = 'this is empty file for now';
