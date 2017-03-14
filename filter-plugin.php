@@ -10,4 +10,5 @@
  * Version:         0.1.0
  *
  * @package         Filter_Plugin
+ *
  */
