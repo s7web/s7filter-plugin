@@ -11,4 +11,3 @@
  *
  * @package         Filter_Plugin
  */
-
