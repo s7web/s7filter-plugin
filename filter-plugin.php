@@ -13,4 +13,15 @@
  * @package         Filter_Plugin
  */
 
-$test = 'this is empty file for now';
+/**
+ * Configuration of plugin
+ *
+ * Returns current configuration of plugin
+ *
+ * @return array
+ */
+function get_config() {
+	return array(
+		'version' => 0.1,
+		);
+}
