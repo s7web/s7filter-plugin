@@ -23,4 +23,3 @@ before_script:
 
 script:
     - phpunit
-    - vendor/bin/phpcs --standard=phpcs.ruleset.xml $(find . -name '*.php')
