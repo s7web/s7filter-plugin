@@ -13,6 +13,12 @@
  * @package         Filter_Plugin
  */
 
+add_action( 'plugins_loaded', __NAMESPACE__ . '\setup' );
+
+function setup() {
+
+}
+
 /**
  * Configuration of plugin
  *
