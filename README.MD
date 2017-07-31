@@ -1,6 +1,4 @@
 # Filter plugin by S7 Design
 
-### Master branch status
-[![CircleCI](https://circleci.com/bb/nenadteam/filter-plugin/tree/master.svg?style=svg)](https://circleci.com/bb/nenadteam/filter-plugin/tree/master)
-### Develop branch status
-[![CircleCI](https://circleci.com/bb/nenadteam/filter-plugin/tree/develop.svg?style=svg)](https://circleci.com/bb/nenadteam/filter-plugin/tree/develop)
+### Master status
+[![Build Status](https://travis-ci.org/s7web/s7filter-plugin.svg?branch=master)](https://travis-ci.org/s7web/s7filter-plugin)
