@@ -5,7 +5,6 @@
  * @package Filter_Plugin
  */
 
-use S7designFilter\Plugin;
 /**
  * Sample test case.
  */
@@ -32,6 +31,6 @@ class InitTest extends WP_UnitTestCase {
 	 */
 	public function test_plugininstance() {
 
-		$this->assertInstanceOf( Plugin::class, init() );
+		$this->assertInstanceOf( 'S7designFilter\Plugin', init() );
 	}
 }
