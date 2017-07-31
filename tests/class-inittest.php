@@ -78,4 +78,45 @@ class InitTest extends WP_UnitTestCase {
 
 		$this->assertInternalType( 'array', get_page_settings_by_id( $page->ID ), 'Settings exists, and they should be returned back to caller' );
 	}
+
+	/**
+	 * Test how settings are parsed, we should always get correct wp-query
+	 */
+	public function test_parsesettings_both() {
+
+		$test_setting = array(
+			'title'    => 'Sample Page',
+			'settings' =>
+				array(
+					'filter'        => 'both',
+					'per_page'      => '10',
+					'categories'    =>
+						array(
+							0 => '1',
+						),
+					'tags'          => array(
+						0 => '1',
+						1 => '2',
+					),
+					'template'      => 'default-thumb-enabled',
+					'dateformat'    => '',
+					'heading'       => '',
+					'heading_class' => '',
+				),
+		);
+
+		$args = array(
+			array(
+				'category__in' => array( 1 ),
+				'post_type'    => array( 'post' ),
+			),
+			array(
+				'tag__in'   => array( 1, 2 ),
+				'post_type' => array( 'post' ),
+			),
+		);
+
+		$this->assertInternalType( 'array', parse_settings( $test_setting ), 'Settings exists, they should be array of args' );
+		$this->assertEquals( json_encode( $args ), json_encode( parse_settings( $test_setting ) ), 'Settings must be correctly parsed' );
+	}
 }

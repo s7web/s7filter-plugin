@@ -80,3 +80,49 @@ function get_page_settings_by_id( $id ) {
 		return false;
 	}
 }
+
+/**
+ * Build query args array based on config
+ *
+ * @param array $settings Settings from database.
+ *
+ * @return array
+ */
+function parse_settings( array $settings ) {
+
+	$args = array();
+	if ( isset( $settings['settings']['filter'] ) ) {
+		switch ( $settings['settings']['filter'] ) {
+			case 'categories':
+				if ( isset( $settings['settings']['categories'] ) ) {
+					$categories           = array_map( 'intval', $settings['settings']['categories'] );
+					$args['category__in'] = $categories;
+				}
+				$args['post_type'] = array( 'post' );
+				break;
+			case 'tags':
+				if ( isset( $settings['settings']['tags'] ) ) {
+					$tags      = array_map( 'intval', $settings['settings']['tags'] );
+					$args['tag__in'] = $tags;
+				}
+				$args['post_type'] = array( 'post' );
+				break;
+			case 'both':
+				if ( isset( $settings['settings']['categories'] ) ) {
+					$categories           = array_map( 'intval', $settings['settings']['categories'] );
+					$args[0]['category__in'] = $categories;
+					$args[0]['post_type'] = array( 'post' );
+				}
+				if ( isset( $settings['settings']['tags'] ) ) {
+					$tags      = array_map( 'intval', $settings['settings']['tags'] );
+					$args[1]['tag__in'] = $tags;
+					$args[1]['post_type'] = array( 'post' );
+				}
+				break;
+			default:
+				break;
+		}
+	}
+
+	return $args;
+}
