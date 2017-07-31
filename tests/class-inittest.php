@@ -80,7 +80,7 @@ class InitTest extends WP_UnitTestCase {
 	}
 
 	/**
-	 * Test how settings are parsed, we should always get correct wp-query
+	 * Test how settings are parsed, we should always get correct wp-query in this case both settings should be parsed
 	 */
 	public function test_parsesettings_both() {
 
@@ -114,6 +114,76 @@ class InitTest extends WP_UnitTestCase {
 				'tag__in'   => array( 1, 2 ),
 				'post_type' => array( 'post' ),
 			),
+		);
+
+		$this->assertInternalType( 'array', parse_settings( $test_setting ), 'Settings exists, they should be array of args' );
+		$this->assertEquals( json_encode( $args ), json_encode( parse_settings( $test_setting ) ), 'Settings must be correctly parsed' );
+	}
+
+	/**
+	 * Test how settings are parsed, we should always get correct wp-query in this case category should be parsed, tags avoided
+	 */
+	public function test_parsesettings_categories_only() {
+
+		$test_setting = array(
+			'title'    => 'Sample Page',
+			'settings' =>
+				array(
+					'filter'        => 'categories',
+					'per_page'      => '10',
+					'categories'    =>
+						array(
+							0 => '1',
+						),
+					'tags'          => array(
+						0 => '1',
+						1 => '2',
+					),
+					'template'      => 'default-thumb-enabled',
+					'dateformat'    => '',
+					'heading'       => '',
+					'heading_class' => '',
+				),
+		);
+
+		$args = array(
+				'category__in' => array( 1 ),
+				'post_type'    => array( 'post' ),
+		);
+
+		$this->assertInternalType( 'array', parse_settings( $test_setting ), 'Settings exists, they should be array of args' );
+		$this->assertEquals( json_encode( $args ), json_encode( parse_settings( $test_setting ) ), 'Settings must be correctly parsed' );
+	}
+
+	/**
+	 * Test how settings are parsed, we should always get correct wp-query in this case tags should be parsed, categories avoided
+	 */
+	public function test_parsesettings_tags_only() {
+
+		$test_setting = array(
+			'title'    => 'Sample Page',
+			'settings' =>
+				array(
+					'filter'        => 'tags',
+					'per_page'      => '10',
+					'categories'    =>
+						array(
+							0 => '1',
+						),
+					'tags'          => array(
+						0 => '1',
+						1 => '2',
+					),
+					'template'      => 'default-thumb-enabled',
+					'dateformat'    => '',
+					'heading'       => '',
+					'heading_class' => '',
+				),
+		);
+
+		$args = array(
+			'tag__in' => array( 1, 2 ),
+			'post_type'    => array( 'post' ),
 		);
 
 		$this->assertInternalType( 'array', parse_settings( $test_setting ), 'Settings exists, they should be array of args' );
