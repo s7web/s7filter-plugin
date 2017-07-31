@@ -13,4 +13,21 @@
  * @package         Filter_Plugin
  */
 
-$test = 'this is empty file for now';
+add_action( 'plugins_loaded', __NAMESPACE__ . '\setup' );
+
+function setup() {
+
+}
+
+/**
+ * Configuration of plugin
+ *
+ * Returns current configuration of plugin
+ *
+ * @return array
+ */
+function get_config() {
+	return array(
+		'version' => 0.1,
+		);
+}
