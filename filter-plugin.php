@@ -15,6 +15,9 @@
 
 add_action( 'plugins_loaded', __NAMESPACE__ . '\setup' );
 
+/**
+ * Setup plugin
+ */
 function setup() {
 
 }

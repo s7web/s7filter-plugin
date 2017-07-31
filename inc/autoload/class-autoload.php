@@ -4,6 +4,7 @@
  *
  * @package OtrsFilter\Autoloader
  */
+
 namespace S7designFilter\Autoload;
 /**
  * Class Autoloader
@@ -11,8 +12,10 @@ namespace S7designFilter\Autoload;
  * @package S7licence\Autoloader
  */
 class Autoload {
+
 	/**
 	 * Path
+	 *
 	 * @var string
 	 */
 	private $dir;

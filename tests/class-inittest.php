@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Class SampleTest
  *
@@ -17,7 +16,6 @@ class InitTest extends WP_UnitTestCase {
 	function test_config() {
 
 		$config = get_config();
-
 
 		$this->assertEquals( array(
 			'version' => 0.1,
