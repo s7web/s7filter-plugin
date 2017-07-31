@@ -34,6 +34,7 @@ function setup() {
  * @return Plugin
  */
 function init() {
+
 	require_once 'inc/autoload/class-autoload.php';
 	$autoloader = new Autoload( __DIR__ );
 	$autoloader->load();
@@ -61,4 +62,21 @@ function get_config() {
 		'css_path'  => $plugin_uri . 'assets/css/',
 		'img_path'  => $plugin_uri . 'assets/img/',
 		);
+}
+
+/**
+ * Get page settings by ID
+ *
+ * @param int $id Id of page for settings.
+ *
+ * @return array|false
+ */
+function get_page_settings_by_id( $id ) {
+
+	$settings = get_option( 's7filter-settings' );
+	if ( isset( $settings[ $id ] ) ) {
+		return $settings[ $id ];
+	} else {
+		return false;
+	}
 }
