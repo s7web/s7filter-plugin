@@ -45,23 +45,23 @@
 											<h4>Filter by:</h4>
 											<input type="radio" <?php if ( $page['settings'] && 'tags' === $page['settings']['filter'] ) {
 												echo 'checked'; }
-											?> value="tags" name="otrs-data[filter]"> Tags
+											?> value="tags" name="s7filter-settings-data[filter]"> Tags
 											<br>
 											<input type="radio" <?php if ( $page['settings'] && 'categories' === $page['settings']['filter'] ) {
 												echo 'checked'; }
-											?> value="categories" name="otrs-data[filter]"> Categories
+											?> value="categories" name="s7filter-settings-data[filter]"> Categories
 											<br>
 											<input type="radio" <?php if ( $page['settings'] && 'both' === $page['settings']['filter'] ) {
-												echo 'checked'; } ?> value="both" name="otrs-data[filter]"> Both categories and tags for
+												echo 'checked'; } ?> value="both" name="s7filter-settings-data[filter]"> Both categories and tags for
 											posts
 											<br>
 											<input type="radio" <?php if ( $page['settings'] && 'none' === $page['settings']['filter'] ) {
-												echo 'checked'; } ?> value="none" name="otrs-data[filter]"> None
+												echo 'checked'; } ?> value="none" name="s7filter-settings-data[filter]"> None
 											<br>
 											<h4>Maximum posts per this page:</h4>
 											<div class="wppf-fold">
 												<input type="text" value="<?php if ( $page['settings'] ) {
-													echo $page['settings']['per_page']; } ?>" class="4_posts_per_page" size="3" name="otrs-data[per_page]">
+													echo $page['settings']['per_page']; } ?>" class="4_posts_per_page" size="3" name="s7filter-settings-data[per_page]">
 											</div>
 											<h4><?php esc_html_e( 'Show pages containing tags:', 's7design-filter' ); ?></h4>
 											<div class="wppf-fold">
@@ -70,7 +70,7 @@
 														<?php foreach ( $tags as $tag ) : ?>
 															<input type="checkbox" <?php if ( $page['settings'] && $page['settings']['tags'] && in_array( $tag->term_id, $page['settings']['tags'] ) ) {
 																echo 'checked'; } ?> value="<?php echo $tag->term_id; ?>"
-																   name="otrs-data[tags][]"> <?php echo $tag->name; ?>
+																   name="s7filter-settings-data[tags][]"> <?php echo $tag->name; ?>
 															<br>
 														<?php endforeach; ?>
 													<?php else : ?>
@@ -85,7 +85,7 @@
 														<?php foreach ( $categories as $category ) : ?>
 															<input type="checkbox" <?php if ( $page['settings'] && $page['settings']['categories'] && in_array( $category->term_id, $page['settings']['categories'] ) ) {
 																echo 'checked'; } ?> value="<?php echo $category->term_id; ?>"
-																   name="otrs-data[categories][]"> <?php echo $category->name; ?>
+																   name="s7filter-settings-data[categories][]"> <?php echo $category->name; ?>
 															<br>
 														<?php endforeach; ?>
 													<?php else : ?>
@@ -96,7 +96,7 @@
 											<h4>Post list template:</h4>
 											<div class="wppf-fold">
 												<select value="default" size="1" class="4_template wppf-controls"
-														id="wppf_opts[4][template]" name="otrs-data[template]">
+														id="wppf_opts[4][template]" name="s7filter-settings-data[template]">
 													<option <?php if ( $page['settings'] && 'default-thumb-enabled' == $page['settings']['template'] ) {
 														echo 'selected'; } ?> value="default-thumb-enabled">default-thumb-enabled
 													</option>
@@ -109,18 +109,18 @@
 											<div class="wppf-fold">
 												<input type="text" value="<?php if ( $page['settings'] ) {
 													echo $page['settings']['dateformat']; } ?>" class="4_dateformat wppf-controls" id="wppf_opts[4][dateformat]"
-													   name="otrs-data[dateformat]">
+													   name="s7filter-settings-data[dateformat]">
 											</div>
 											<h4><?php esc_html_e( 'Heading tag for the posts on this page:', 's7design-filter' ); ?></h4>
 											<div class="wppf-fold">
 												<input type="text" value="<?php if ( $page['settings'] ) {
-													echo $page['settings']['heading']; } ?>" class="4_heading_tag wppf-controls" name="otrs-data[heading]">
+													echo $page['settings']['heading']; } ?>" class="4_heading_tag wppf-controls" name="s7filter-settings-data[heading]">
 											</div>
 											<h4><?php esc_html_e( 'Heading class for the posts on this page:', 's7design-filter' ); ?></h4>
 											<div class="wppf-fold">
 												<input type="text" value="<?php if ( $page['settings'] ) {
 													echo $page['settings']['heading_class']; } ?>" class="4_heading_class wppf-controls"
-													   name="otrs-data[heading_class]">
+													   name="s7filter-settings-data[heading_class]">
 											</div>
 											<br>
 											<input type="hidden" name="action" value="otrs_save_page_settings">
