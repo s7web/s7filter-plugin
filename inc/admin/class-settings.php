@@ -158,7 +158,7 @@ class Settings extends BaseController {
 			   class="nav-tab nav-tab-active"><?php esc_html_e( 'Pages settings', 's7design-filter' ); ?></a>
 		</h2>
 		<?php
-		$this->render( 'pages_settings',
+		$this->render( 'pages-settings',
 			array(
 				'pages'      => get_option( 's7filter-settings' ),
 				'categories' => get_categories(
