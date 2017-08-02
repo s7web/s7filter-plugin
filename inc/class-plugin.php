@@ -29,8 +29,8 @@ class Plugin {
 
 	/**
 	 * Asset loader
-	 * 
-	 * @var 
+	 *
+	 * @var AssetsLoad
 	 */
 	private $asset_loader;
 
@@ -89,15 +89,14 @@ class Plugin {
 				'no_pages'   => __( 'Sorry but there is no configured pages right now!', 'otrs-filter' ),
 				'is_pages'   => $is_pages_setting,
 				'empty_name' => __( 'Page name can not be empty', 'otrs-filter' ),
-				'less_name'  => __( 'This must be page id, start typing then select result from autocomplete',
-					'otrs-filter' ),
+				'less_name'  => __( 'This must be page id, start typing then select result from autocomplete', 'otrs-filter' ),
 			)
 		);
 	}
 
 	/**
 	 * Load front end scripts
-	 * 
+	 *
 	 * @return void
 	 */
 	public function front_end_scripts() {
