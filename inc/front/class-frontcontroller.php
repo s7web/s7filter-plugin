@@ -22,7 +22,7 @@ class FrontController extends BaseController {
 	 */
 	public function template_redirect( $template ) {
 		$current_post_id = get_the_ID();
-		$settings        = \OtrsFilter\get_page_settings_by_id( $current_post_id );
+		$settings        = get_page_settings_by_id( $current_post_id );
 		if ( $settings ) {
 			$path_template = 'filter_template.php';
 			$new_template  = locate_template( array( $path_template ) );
@@ -40,7 +40,7 @@ class FrontController extends BaseController {
 
 		$page_id  = (int) $this->get( 'page_id' );
 		$args     = array();
-		$settings = \OtrsFilter\get_page_settings_by_id( $page_id );
+		$settings = get_page_settings_by_id( $page_id );
 		$params   = $this->get( 'params' );
 		if ( false !== $params && (isset($params['categories']) || isset($params['tags'])) ) {
 
@@ -70,7 +70,7 @@ class FrontController extends BaseController {
 			}
 		} else {
 			$current_page = (isset($params['current_page'])) ? $params['current_page'] : 1;
-			$args         = \OtrsFilter\parse_settings( $settings );
+			$args         = parse_settings( $settings );
 			if(isset($args[0]) && isset($args[1])){
 				$query1 = new \WP_Query($args[0]);
 				$query2 = new \WP_Query($args[1]);
