@@ -11,6 +11,7 @@ namespace S7designFilter;
 
 use S7designFilter\Admin\Settings;
 use S7designFilter\Front\FrontController;
+use S7designFilter\Assets\AssetsLoad;
 
 /**
  * Class Plugin
@@ -27,12 +28,21 @@ class Plugin {
 	private $config;
 
 	/**
+	 * Asset loader
+	 * 
+	 * @var 
+	 */
+	private $asset_loader;
+
+	/**
 	 * Plugin constructor.
 	 *
 	 * @param \stdClass $config Configuration object.
 	 */
 	public function __construct( \stdClass $config ) {
+
 		$this->config = $config;
+		$this->asset_loader = new AssetsLoad( $this->config );
 	}
 
 	/**
@@ -69,24 +79,12 @@ class Plugin {
 	 */
 	public function admin_scripts() {
 
-		wp_enqueue_script(
-			'ot_interface_handler',
-			$this->config->js_path . 'admin_interface.js',
-			array( 'jquery', 'jquery-ui-core', 'jquery-ui-slider', 'jquery-ui-autocomplete', 'jquery-ui-accordion' ),
-			'1',
-			true
-		);
-		wp_enqueue_style(
-			'jquery-ui-css',
-			'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css',
-			false,
-			'1',
-			false
-		);
+		$this->asset_loader->load_admin_assets();
+
 		$is_pages_setting = ( isset( $_REQUEST['settings_page'] ) && 'pages' === $_REQUEST['settings_page'] ) ? true : false;
 		wp_localize_script(
-			'ot_interface_handler',
-			'ot_interface',
+			's7_interface_handler',
+			's7_interface',
 			array(
 				'no_pages'   => __( 'Sorry but there is no configured pages right now!', 'otrs-filter' ),
 				'is_pages'   => $is_pages_setting,
@@ -97,6 +95,11 @@ class Plugin {
 		);
 	}
 
+	/**
+	 * Load front end scripts
+	 * 
+	 * @return void
+	 */
 	public function front_end_scripts() {
 		wp_enqueue_script(
 			'react-js',

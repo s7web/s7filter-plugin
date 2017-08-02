@@ -5,6 +5,7 @@
  * @package Filter_Plugin
  */
 
+use S7designFilter\Assets\AssetsLoad;
 /**
  * Sample test case.
  */
@@ -188,5 +189,48 @@ class InitTest extends WP_UnitTestCase {
 
 		$this->assertInternalType( 'array', parse_settings( $test_setting ), 'Settings exists, they should be array of args' );
 		$this->assertEquals( json_encode( $args ), json_encode( parse_settings( $test_setting ) ), 'Settings must be correctly parsed' );
+	}
+
+	/**
+	 * Test do we load right scripts for admin panel
+	 */
+	public function test_admin_scripts_is_right() {
+
+		$config = (object) get_config();
+		$scripts_loader = new AssetsLoad( $config );
+
+		$expected_admin_scritps = array(
+				array(
+						'handler'      => 's7_interface_handler',
+						'src'          => $config->js_path . 'admin_interface.js',
+						'dependencies' => array( 'jquery', 'jquery-ui-core', 'jquery-ui-slider', 'jquery-ui-autocomplete', 'jquery-ui-accordion' ),
+						'version'      => '1',
+						'footer'       => true,
+						'script'       => true,
+				),
+		);
+
+		$this->assertEquals( json_encode( $expected_admin_scritps ), json_encode( $scripts_loader->get_admin_scripts() ) );
+	}
+
+	/**
+	 * Test do we load right styles for admin panel
+	 */
+	public function test_admin_styles_is_right() {
+		$config = (object) get_config();
+		$styles_loader = new AssetsLoad( $config );
+
+		$expected_styles = array(
+				array(
+					'handler'      => 'jquery-ui-css',
+					'src'          => 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css',
+					'dependencies' => array(),
+					'version'      => '1',
+					'media'        => false,
+					'script'       => false,
+				),
+			);
+
+		$this->assertEquals( json_encode( $expected_styles ), json_encode( $styles_loader->get_admin_styles() ) );
 	}
 }
