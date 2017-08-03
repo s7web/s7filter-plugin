@@ -41,8 +41,8 @@ class Plugin {
 	 */
 	public function __construct( \stdClass $config ) {
 
-		$this->config = $config;
-		$this->asset_loader = new AssetsLoad( $this->config );
+		$this->config		 = $config;
+		$this->asset_loader	 = new AssetsLoad( $this->config );
 	}
 
 	/**
@@ -82,15 +82,12 @@ class Plugin {
 		$this->asset_loader->load_admin_assets();
 
 		$is_pages_setting = ( isset( $_REQUEST['settings_page'] ) && 'pages' === $_REQUEST['settings_page'] ) ? true : false;
-		wp_localize_script(
-			's7_interface_handler',
-			's7_interface',
-			array(
-				'no_pages'   => __( 'Sorry but there is no configured pages right now!', 'otrs-filter' ),
-				'is_pages'   => $is_pages_setting,
-				'empty_name' => __( 'Page name can not be empty', 'otrs-filter' ),
-				'less_name'  => __( 'This must be page id, start typing then select result from autocomplete', 'otrs-filter' ),
-			)
+		wp_localize_script( 's7_interface_handler', 's7_interface', array(
+			'no_pages'	 => __( 'Sorry but there is no configured pages right now!', 'otrs-filter' ),
+			'is_pages'	 => $is_pages_setting,
+			'empty_name' => __( 'Page name can not be empty', 'otrs-filter' ),
+			'less_name'	 => __( 'This must be page id, start typing then select result from autocomplete', 'otrs-filter' ),
+				)
 		);
 	}
 
@@ -100,29 +97,16 @@ class Plugin {
 	 * @return void
 	 */
 	public function front_end_scripts() {
-		wp_enqueue_script(
-			'react-js',
-			$this->config->js_path . 'react.js',
-			false,
-			'1',
-			false
-		);
-		wp_enqueue_script(
-			'ot_filter_component',
-			$this->config->js_path . 'filter_component_js/filter_component.js',
-			array( 'react-js', 'jquery', 'underscore' ),
-			'1',
-			true
-		);
-		wp_localize_script( 'ot_filter_component',
-			'filter_objects',
-			array(
-				'ajax_url'     => admin_url( 'admin-ajax.php' ),
-				'page_id'      => get_the_ID(),
-				'title_cat'    => __( 'Countries', 'otrs-filter' ),
-				'title_tag'    => __( 'Sectors', 'otrs-filter' ),
-				'used_filters' => __( 'Used filters', 'otrs-filter' ),
-			)
+
+		$this->asset_loader->load_front_assets();
+
+		wp_localize_script( 's7_filter_component', 'filter_objects', array(
+			'ajax_url'		 => admin_url( 'admin-ajax.php' ),
+			'page_id'		 => get_the_ID(),
+			'title_cat'		 => __( 'Countries', 'otrs-filter' ),
+			'title_tag'		 => __( 'Sectors', 'otrs-filter' ),
+			'used_filters'	 => __( 'Used filters', 'otrs-filter' ),
+				)
 		);
 	}
 
@@ -132,7 +116,6 @@ class Plugin {
 	 * @return void
 	 */
 	public function admin_styles() {
-
 		wp_enqueue_style( 'otrs-filter-style', $this->config->css_path . 'admin_interface.css' );
 	}
 
