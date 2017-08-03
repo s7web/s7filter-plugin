@@ -233,32 +233,36 @@ class InitTest extends WP_UnitTestCase {
 
 		$this->assertEquals( json_encode( $expected_styles ), json_encode( $styles_loader->get_admin_styles() ) );
 	}
-        
-        public function test_front_scripts_definition() {
-            
-            $config = (object) get_config();
-            
-            $scripts_loader = new AssetsLoad( $config );
-            
-            $expected_front_scripts = array(
-                array(
-                    'handler'      => 'react-js',
-                    'src'          => $config->js_path . 'react.js',
-                    'dependencies' => array(),
-                    'version'      => '1',
-                    'footer'       => false,
-                    'script'       => true,
-                ),
-                array(
-                    'handler'      => 's7_filter_component',
-                    'src'          => $config->js_path . 'filter_component_js/filter_component.js',
-                    'dependencies' => array( 'react-js', 'jquery', 'underscore' ),
-                    'version'      => '1',
-                    'footer'       => true,
-                    'script'       => true,
-                ),
-            );
-            
-            $this->assertEquals( json_encode( $expected_front_scripts ), json_encode( $scripts_loader->get_front_scripts() ) );
-        }
+
+	/**
+	 * Test do we have right scripts defined for front-end
+	 */
+	public function test_front_scripts_definition() {
+
+		$config = (object) get_config();
+
+		$scripts_loader = new AssetsLoad( $config );
+
+		$expected_front_scripts = array(
+			array(
+				'handler'		 => 'react-js',
+				'src'			 => $config->js_path . 'react.js',
+				'dependencies'	 => array(),
+				'version'		 => '1',
+				'footer'		 => false,
+				'script'		 => true,
+			),
+			array(
+				'handler'		 => 's7_filter_component',
+				'src'			 => $config->js_path . 'filter_component_js/filter_component.js',
+				'dependencies'	 => array( 'react-js', 'jquery', 'underscore' ),
+				'version'		 => '1',
+				'footer'		 => true,
+				'script'		 => true,
+			),
+		);
+
+		$this->assertEquals( json_encode( $expected_front_scripts ), json_encode( $scripts_loader->get_front_scripts() ) );
+	}
+
 }
