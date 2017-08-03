@@ -54,13 +54,10 @@ class Plugin {
 			$admin_settings = new Settings( $this->config );
 			add_action( 'admin_menu', array( $admin_settings, 'init_menu' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
-			add_action( 'wp_ajax_ot_get_all_pages', array( $admin_settings, 'get_all_pages' ) );
-			add_action( 'wp_ajax_ot_get_all_pages_autocomplete', array( $admin_settings, 'get_pages_from_table_with_params' ) );
-			add_action( 'wp_ajax_ot_save_option_pages', array( $admin_settings, 'save_option_pages' ) );
-
-			add_action( 'admin_post_otrs_post_settings', array( $admin_settings, 'save_general_settings' ) );
-			add_action( 'admin_post_otrs_style_settings', array( $admin_settings, 'save_general_settings' ) );
-			add_action( 'admin_post_otrs_save_page_settings', array( $admin_settings, 'save_page_settings' ) );
+			add_action( 'wp_ajax_s7_get_all_pages', array( $admin_settings, 'get_all_pages' ) );
+			add_action( 'wp_ajax_s7_get_all_pages_autocomplete', array( $admin_settings, 'get_pages_from_table_with_params' ) );
+			add_action( 'wp_ajax_s7_save_option_pages', array( $admin_settings, 'save_option_pages' ) );
+			add_action( 'admin_post_s7_save_page_settings', array( $admin_settings, 'save_page_settings' ) );
 		}
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ) );
@@ -68,8 +65,8 @@ class Plugin {
 		add_action( 'wp_enqueue_scripts', array( $this, 'front_end_scripts' ) );
 		$front_controller = new FrontController( $this->config );
 		add_action( 'template_include', array( $front_controller, 'template_redirect' ), 99 );
-		add_action( 'wp_ajax_ot_api_data', array( $front_controller, 'provide_data' ) );
-		add_action( 'wp_ajax_nopriv_ot_api_data', array( $front_controller, 'provide_data' ) );
+		add_action( 'wp_ajax_s7_api_data', array( $front_controller, 'provide_data' ) );
+		add_action( 'wp_ajax_nopriv_s7_api_data', array( $front_controller, 'provide_data' ) );
 	}
 
 	/**

@@ -2,7 +2,7 @@
 /**
  * Autoloader for plugin
  *
- * @package OtrsFilter\Autoloader
+ * @package S7designFilter\Autoloader
  */
 
 namespace S7designFilter\Autoload;

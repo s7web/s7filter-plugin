@@ -2,7 +2,7 @@
 /**
  * Setting for individual pages template
  *
- * @package OtrsFilter
+ * @package S7designFilter
  */
 
 ?>
@@ -27,16 +27,16 @@
 
 						<div class="inside">
 							<p>
-								<label for="ot_add_new_page"> <?php esc_html_e( 'Specify page for filter:', 's7design-filter' ) ?></label>
-								<input type="text" name="ot_add_new_page" id="ot_add_new_page">
+								<label for="s7_add_new_page"> <?php esc_html_e( 'Specify page for filter:', 's7design-filter' ) ?></label>
+								<input type="text" name="s7_add_new_page" id="s7_add_new_page">
 								<button class="button button-primary"
-										id="ot_add_page_button"> <?php esc_html_e( 'Add page',
+										id="s7_add_page_button"> <?php esc_html_e( 'Add page',
 										's7design-filter' ); ?></button>
-								<span class="description" id="ot_pages_validation" style="color: red;">
+								<span class="description" id="s7_pages_validation" style="color: red;">
 										<!-- javascript validation message -->
 									</span><br>
 							</p>
-							<div id="ot_pages_list_container">
+							<div id="s7_pages_list_container">
 
 								<?php if ( $pages ) : ?>
 									<?php foreach ( $pages as $id => $page ) : ?>
@@ -123,7 +123,7 @@
 													   name="s7filter-settings-data[heading_class]">
 											</div>
 											<br>
-											<input type="hidden" name="action" value="otrs_save_page_settings">
+											<input type="hidden" name="action" value="s7_save_page_settings">
 											<input type="hidden" name="page-id" value="<?php echo esc_attr( $id ); ?>">
 											<input type="submit" class="button button-primary" value="Save">
 										</form>

@@ -1,33 +1,33 @@
-.ot_admin_form {
+.s7_admin_form {
   width: 50%; }
-  .ot_admin_form .ot_remove_width {
+  .s7_admin_form .s7_remove_width {
     width: auto !important;
     margin-left: 6%; }
-  .ot_admin_form .ot_slider {
+  .s7_admin_form .s7_slider {
     margin-left: 6%; }
-  .ot_admin_form #ot_posts_per_page_div {
+  .s7_admin_form #s7_posts_per_page_div {
     margin-left: 6%; }
-  .ot_admin_form label {
+  .s7_admin_form label {
     width: 15%;
     text-align: right;
     display: inline-block; }
-  .ot_admin_form input[type=text] {
+  .s7_admin_form input[type=text] {
     width: 40%;
     display: inline-block; }
-  .ot_admin_form .description {
+  .s7_admin_form .description {
     width: 40%;
     display: inline-block; }
-  .ot_admin_form input[type=submit] {
+  .s7_admin_form input[type=submit] {
     margin-left: 6%; }
 
 .ui-accordion-header-icon {
   display: none; }
 
-.ot_space_filter_buttons {
+.s7_space_filter_buttons {
   margin-left: 1%;
   margin-top: 5px; }
 
-.ot_pagination_buttons {
+.s7_pagination_buttons {
   width: 30%;
   margin: 0 auto;
   margin-top: 50px; }

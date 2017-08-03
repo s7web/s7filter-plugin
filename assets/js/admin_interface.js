@@ -5,28 +5,28 @@ jQuery.noConflict();
    * Container for pages on pages settings tab
    * @type {*|HTMLElement}
    */
-  var pagesContainer = $('#ot_pages_list_container').accordion({
+  var pagesContainer = $('#s7_pages_list_container').accordion({
       collapsible: true,
       active: false
   });
   $(document).ready(function () {
 
-    if (ot_interface.is_pages) {
+    if (s7_interface.is_pages) {
       // If page is pages settings fetch saved settings for pages
-      //ot.parsePages();
+      //s7.parsePages();
     }
 
     /**
      * Slider control js for input slider on general settings ( posts per page input )
      */
-    $("#ot_posts_per_page_div").slider({
+    $("#s7_posts_per_page_div").slider({
       range: "min",
-      value: $("#ot_posts_per_page").val(),
+      value: $("#s7_posts_per_page").val(),
       min: 5,
       max: 100,
       slide: function (event, ui) {
-        $("#ot_posts_per_page").val(ui.value);
-        $("#ot_number_current").html(ui.value);
+        $("#s7_posts_per_page").val(ui.value);
+        $("#s7_number_current").html(ui.value);
       }
     });
   });
@@ -36,29 +36,29 @@ jQuery.noConflict();
    * Also this is point where validation of input data is performed
    * Look in Plugin.php for localized error messages
    */
-  $('#ot_add_page_button').on('click', function () {
-    var page_id = $('#ot_add_new_page').val();
+  $('#s7_add_page_button').on('click', function () {
+    var page_id = $('#s7_add_new_page').val();
     try {
       if (page_id == '') {
-        throw ot_interface.empty_name
+        throw s7_interface.empty_name
       }
       if (isNaN(page_id)) {
-        throw ot_interface.less_name
+        throw s7_interface.less_name
       }
-      ot.pagesSave({action: "ot_save_option_pages", page_id: page_id}).then(function () {
-        ot.parsePages();
+      s7.pagesSave({action: "s7_save_option_pages", page_id: page_id}).then(function () {
+        s7.parsePages();
       });
     }
     catch (e) {
-      $('#ot_pages_validation').html(e);
+      $('#s7_pages_validation').html(e);
     }
   });
 
   /**
    * Auto complete function for choosing page, min chars to start auto complete is 3
    */
-  $('#ot_add_new_page').autocomplete({
-    source: ajaxurl + '?' + 'action=ot_get_all_pages_autocomplete',
+  $('#s7_add_new_page').autocomplete({
+    source: ajaxurl + '?' + 'action=s7_get_all_pages_autocomplete',
     minLength: 3
   });
 
@@ -66,15 +66,15 @@ jQuery.noConflict();
    * Utility class for plugin
    * @type {}
    */
-  var ot = {};
+  var s7 = {};
 
   /**
    * Get all pages from settings action, send Ajax request to backend, return promise
    *
    * @returns {*|.promise}
    */
-  ot.getAllPages = function () {
-    return $.get(ajaxurl, {"action": "ot_get_all_pages"});
+  s7.getAllPages = function () {
+    return $.get(ajaxurl, {"action": "s7_get_all_pages"});
   };
 
   /**
@@ -84,7 +84,7 @@ jQuery.noConflict();
    *
    * @returns {*|$.promise}
    */
-  ot.pagesSave = function (data) {
+  s7.pagesSave = function (data) {
     return $.post(ajaxurl, data);
   };
 
@@ -93,10 +93,10 @@ jQuery.noConflict();
    *
    * @return void
    */
-  ot.parsePages = function () {
+  s7.parsePages = function () {
     this.getAllPages().then(function (data) {
       if (data == false) {
-        pagesContainer.html("<h3>" + ot_interface.no_pages + "</h3>");
+        pagesContainer.html("<h3>" + s7_interface.no_pages + "</h3>");
       }else{
         pagesContainer.html("");
         Object.keys(data).map(function(key){
