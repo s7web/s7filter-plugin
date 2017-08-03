@@ -1,10 +1,10 @@
 jQuery.noConflict();
 (function ($) {
-  $(document).on('click', '.ot_trigger_cat', function(){
-    $('.ot_filter_cat_container').toggle();
+  $(document).on('click', '.s7_trigger_cat', function(){
+    $('.s7_filter_cat_container').toggle();
   });
-  $(document).on('click', '.ot_trigger_tag', function(){
-    $('.ot_filter_tag_container').toggle();
+  $(document).on('click', '.s7_trigger_tag', function(){
+    $('.s7_filter_tag_container').toggle();
   });
 
   /**
@@ -154,7 +154,7 @@ jQuery.noConflict();
      * @returns {*}
      */
     getDataFromApi: function (data) {
-      return $.get(filter_objects.ajax_url, {action: 'ot_api_data', page_id: filter_objects.page_id , params: data});
+      return $.get(filter_objects.ajax_url, {action: 's7_api_data', page_id: filter_objects.page_id , params: data});
     },
 
     /**
@@ -170,13 +170,13 @@ jQuery.noConflict();
       headTag       = '<' + this.state.settingsHeadTag + ' className="' + this.state.settingsHeadClass + '">',
       headCloseTag  = '</' + this.state.settingsHeadTag + '>',
       current_page  = this.state.current_page,
-      nextPrevious = React.createElement("div", {className: "ot_pagination_buttons"}, React.createElement(PreviousPageButton, {onClick: this.callPage.bind(null, current_page - 1)}), React.createElement(NextPageButton, {onClick: this.callPage.bind(null, current_page + 1)})),
+      nextPrevious = React.createElement("div", {className: "s7_pagination_buttons"}, React.createElement(PreviousPageButton, {onClick: this.callPage.bind(null, current_page - 1)}), React.createElement(NextPageButton, {onClick: this.callPage.bind(null, current_page + 1)})),
       style = this.state.load;
       return (
         React.createElement("div", {style: style}, 
-          React.createElement("div", {className: "ot_categories"}, 
-            React.createElement("h3", {className: "ot_trigger_cat"}, filter_objects.title_cat, " ", React.createElement("i", {className: "fa fa-plus-square"})), 
-            React.createElement("div", {className: "ot_filter_cat_container"}, 
+          React.createElement("div", {className: "s7_categories"}, 
+            React.createElement("h3", {className: "s7_trigger_cat"}, filter_objects.title_cat, " ", React.createElement("i", {className: "fa fa-plus-square"})), 
+            React.createElement("div", {className: "s7_filter_cat_container"}, 
                 categories.map(function (cat) {
                   var catElement = '';
                   if(cat.length > 0){
@@ -186,9 +186,9 @@ jQuery.noConflict();
                 }.bind(this))
             )
           ), 
-          React.createElement("div", {className: "ot_tags"}, 
-            React.createElement("h3", {className: "ot_trigger_tag"}, filter_objects.title_tag, " ", React.createElement("i", {className: "fa fa-plus-square"})), 
-            React.createElement("div", {className: "ot_filter_tag_container"}, 
+          React.createElement("div", {className: "s7_tags"}, 
+            React.createElement("h3", {className: "s7_trigger_tag"}, filter_objects.title_tag, " ", React.createElement("i", {className: "fa fa-plus-square"})), 
+            React.createElement("div", {className: "s7_filter_tag_container"}, 
                 tags.map(function (tag) {
                   var tagElement = '';
                   if(tag.length > 0){
@@ -198,22 +198,22 @@ jQuery.noConflict();
                 }.bind(this))
               )
           ), 
-          React.createElement("div", {className: "ot_used_filters_cats"}, 
+          React.createElement("div", {className: "s7_used_filters_cats"}, 
             React.createElement("h3", null, React.createElement("span", null, filter_objects.used_filters)), 
               usedCats.map(function (usedFilter) {
                 return React.createElement(UsedFilterCats, {onClick: this.handleClickRemoveCat.bind(null, usedFilter), 
                                        usedFilter: usedFilter})
               }.bind(this))
           ), 
-          React.createElement("div", {className: "ot_used_filters_tags"}, 
+          React.createElement("div", {className: "s7_used_filters_tags"}, 
               usedTags.map(function (usedFilter) {
                 return React.createElement(UsedFilterTags, {onClick: this.handleClickRemoveTag.bind(null, usedFilter), 
                                        usedFilter: usedFilter})
               }.bind(this))
           ), 
-          React.createElement("div", {className: "row otrs_master_container"}, 
+          React.createElement("div", {className: "row s7_master_container"}, 
             selected.map(function (item) {
-              return React.createElement("div", {className: "col-md-3 otrs_filter_container", dangerouslySetInnerHTML: {__html: '<div class="row otrs_filter_img_container">' + item.thumbnail + '</div><a href="'+ item.link +'">' + headTag + item.post_name + headCloseTag + '</a>'}})
+              return React.createElement("div", {className: "col-md-3 s7_filter_container", dangerouslySetInnerHTML: {__html: '<div class="row s7_filter_img_container">' + item.thumbnail + '</div><a href="'+ item.link +'">' + headTag + item.post_name + headCloseTag + '</a>'}})
             })
           ), 
           React.createElement("div", {className: "row"}, 
@@ -229,7 +229,7 @@ jQuery.noConflict();
    */
   var Category = React.createClass({displayName: "Category",
     render: function () {
-      return React.createElement("button", {className: "btn btn-blue ot_space_filter_buttons", onClick: this.props.onClick}, this.props.categoryName)
+      return React.createElement("button", {className: "btn btn-blue s7_space_filter_buttons", onClick: this.props.onClick}, this.props.categoryName)
     }
   });
 
@@ -238,7 +238,7 @@ jQuery.noConflict();
    */
   var Tag = React.createClass({displayName: "Tag",
     render: function () {
-      return React.createElement("button", {className: "btn btn-blue ot_space_filter_buttons", onClick: this.props.onClick}, this.props.tagName)
+      return React.createElement("button", {className: "btn btn-blue s7_space_filter_buttons", onClick: this.props.onClick}, this.props.tagName)
     }
   });
 
@@ -247,7 +247,7 @@ jQuery.noConflict();
    */
   var UsedFilterCats = React.createClass({displayName: "UsedFilterCats",
     render: function () {
-      return React.createElement("button", {className: "btn btn-blue ot_space_filter_buttons", onClick: this.props.onClick}, this.props.usedFilter)
+      return React.createElement("button", {className: "btn btn-blue s7_space_filter_buttons", onClick: this.props.onClick}, this.props.usedFilter)
     }
   });
 
@@ -256,21 +256,21 @@ jQuery.noConflict();
    */
   var UsedFilterTags = React.createClass({displayName: "UsedFilterTags",
     render: function () {
-      return React.createElement("button", {className: "btn btn-blue ot_space_filter_buttons", onClick: this.props.onClick}, this.props.usedFilter)
+      return React.createElement("button", {className: "btn btn-blue s7_space_filter_buttons", onClick: this.props.onClick}, this.props.usedFilter)
     }
   });
 
   var NextPageButton = React.createClass({displayName: "NextPageButton",
     render: function(){
-      return React.createElement("button", {className: "btn btn-blue ot_space_filter_buttons", onClick: this.props.onClick}, " Next ")
+      return React.createElement("button", {className: "btn btn-blue s7_space_filter_buttons", onClick: this.props.onClick}, " Next ")
     }
   });
   var PreviousPageButton = React.createClass({displayName: "PreviousPageButton",
     render: function(){
-      return React.createElement("button", {className: "btn btn-blue ot_space_filter_buttons", onClick: this.props.onClick}, " Previous ")
+      return React.createElement("button", {className: "btn btn-blue s7_space_filter_buttons", onClick: this.props.onClick}, " Previous ")
     }
   });
-  var el = document.getElementById('ot_filters_display');
+  var el = document.getElementById('s7_filters_display');
   if ( el ) {
     React.render(
         React.createElement(FilterClass, null),

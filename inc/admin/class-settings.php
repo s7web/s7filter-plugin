@@ -38,7 +38,7 @@ class Settings extends BaseController {
 	/**
 	 * Get all pages saved for filtering
 	 *
-	 * @wp-hook wp_ajax_ot_get_all_pages
+	 * @wp-hook wp_ajax_s7_get_all_pages
 	 *
 	 * @return void
 	 */
@@ -52,7 +52,7 @@ class Settings extends BaseController {
 	/**
 	 * Get pages for auto complete functionality on front end
 	 *
-	 * @wp-hook wp_ajax_ot_get_all_pages_autocomplete
+	 * @wp-hook wp_ajax_s7_get_all_pages_autocomplete
 	 *
 	 * @return void
 	 */
@@ -85,7 +85,7 @@ class Settings extends BaseController {
 	/**
 	 * Save new pages to filter plugin options ( Save configuration )
 	 *
-	 * @wp-hook wp_ajax_ot_save_option_pages
+	 * @wp-hook wp_ajax_s7_save_option_pages
 	 *
 	 * @return void
 	 */
