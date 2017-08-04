@@ -36,12 +36,19 @@ class FrontController extends BaseController {
 		return $template;
 	}
 
-	public function provide_data() {
+	/**
+	 * Build search query
+	 *
+	 * @param int   $page_id
+	 * @param array $settings
+	 * @param array $params
+	 *
+	 * @return array
+	 */
+	private function buildQuery( $page_id, $settings, $params ) {
 
-		$page_id  = (int) $this->get( 'page_id' );
-		$args     = array();
-		$settings = get_page_settings_by_id( $page_id );
-		$params   = $this->get( 'params' );
+		$args = array();
+
 		if ( false !== $params && (isset($params['categories']) || isset($params['tags'])) ) {
 
 			if ( isset( $settings[ 'settings' ][ 'filter' ] ) ) {
@@ -82,6 +89,18 @@ class FrontController extends BaseController {
 			$args['offset'] = ($current_page - 1) * $per_page;
 			$args['posts_per_page'] = $per_page;
 		}
+
+		return $args;
+	}
+
+	public function provide_data() {
+
+		$page_id  = (int) $this->get( 'page_id' );
+		$settings = get_page_settings_by_id( $page_id );
+		$params   = $this->get( 'params' );
+
+		$args = $this->buildQuery( $page_id, $settings, $params );
+		
 		$query  = new \WP_Query( $args );
 		$output = array();
 		$output['selected'] = array();
