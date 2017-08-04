@@ -24,12 +24,12 @@ class FrontController extends BaseController {
 		$current_post_id = get_the_ID();
 		$settings        = get_page_settings_by_id( $current_post_id );
 		if ( $settings ) {
-			$path_template = 'filter_template.php';
+			$path_template = 'filter-template.php';
 			$new_template  = locate_template( array( $path_template ) );
 			if ( '' !== $new_template ) {
 				return $new_template;
 			} else {
-				return $this->config->base_path . '/inc/templates/filter_template.php';
+				return $this->config->base_path . '/inc/templates/filter-template.php';
 			}
 		}
 
