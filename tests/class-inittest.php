@@ -265,4 +265,122 @@ class InitTest extends WP_UnitTestCase {
 		$this->assertEquals( json_encode( $expected_front_scripts ), json_encode( $scripts_loader->get_front_scripts() ) );
 	}
 
+	/**
+	 * Test building query for front-end categories only
+	 *
+	 * @return void
+	 */
+	public function test_front_category_queries() { 
+		
+		$test_objects_collection = $this->add_posts_categories_and_tags_for_test();
+
+		wp_set_post_categories($test_objects_collection->posts[1]->ID, array($test_objects_collection->categories[0]->term_id, $test_objects_collection->categories[1]->term_id));
+		wp_set_post_categories($test_objects_collection->posts[2]->ID, array($test_objects_collection->categories[0]->term_id));
+		wp_set_post_categories($test_objects_collection->posts[3]->ID, array($test_objects_collection->categories[0]->term_id, $test_objects_collection->categories[2]->term_id));
+
+
+		$settings = array(
+			'title'    => 'Sample Page',
+			'settings' =>
+				array(
+					'filter'        => 'categories',
+					'per_page'      => '10',
+					'categories'    =>
+						array(
+							0 => $test_objects_collection->categories[0]->term_id,
+							1 => $test_objects_collection->categories[1]->term_id,
+							2 => $test_objects_collection->categories[2]->term_id
+						),
+					'tags'          => array(
+						0 => '1',
+						1 => '2',
+					),
+					'template'      => 'default-thumb-enabled',
+					'dateformat'    => '',
+					'heading'       => '',
+					'heading_class' => '',
+				),
+		);
+
+		$params = array(
+			'page_id'      => $test_objects_collection->posts[0]->ID,
+			'current_page' => 1,
+		);
+
+		$controller = new \S7designFilter\Front\FrontController( get_config() );
+
+		$this->assertInstanceOf('WP_Query', $controller->buildQuery($params['page_id'], $settings, $params));
+		$built_query = $controller->buildQuery($params['page_id'], $settings, $params);
+		$this->assertEquals( 3,  $built_query->post_count);
+
+		$params = array(
+			'page_id'      => $test_objects_collection->posts[0]->ID,
+			'current_page' => 1,
+			'categories'   => array(
+				'Test category 1',
+			)
+		);
+		$built_query = $controller->buildQuery($params['page_id'], $settings, $params);
+
+		$this->assertEquals(3, $built_query->post_count);
+
+		$params = array(
+			'page_id'      => $test_objects_collection->posts[0]->ID,
+			'current_page' => 1,
+			'categories'   => array(
+				'Test Category 3',
+			)
+		);
+		$built_query = $controller->buildQuery($params['page_id'], $settings, $params);
+
+		$posts = $built_query->posts;
+
+		$this->assertEquals($test_objects_collection->posts[3]->ID, $posts[0]->ID);
+		$this->assertEquals(1, count($posts));
+
+		$params = array(
+			'page_id'      => $test_objects_collection->posts[0]->ID,
+			'current_page' => 1,
+			'categories'   => array(
+				'Test Category 3',
+				'Test category 2',
+			)
+		);
+		$built_query = $controller->buildQuery($params['page_id'], $settings, $params);
+
+		$posts = $built_query->posts;
+
+		$this->assertEquals($test_objects_collection->posts[1]->ID, $posts[0]->ID);
+		$this->assertEquals($test_objects_collection->posts[3]->ID, $posts[1]->ID);
+		$this->assertEquals(2, count($posts));
+	}
+
+	/**
+	 * Setup multiple post, category, and tags for tests
+	 *
+	 * @return \stdClass
+	 */
+	private function add_posts_categories_and_tags_for_test() { 
+
+		$holder = new \stdClass();
+		$holder->categories = array();
+		$holder->categories[] = $this->factory->category->create_and_get(array('name' => 'Test category 1'));
+		$holder->categories[] = $this->factory->category->create_and_get(array('name' => 'Test category 2'));
+		$holder->categories[] = $this->factory->category->create_and_get(array('name' => 'Test Category 3'));
+
+		$holder->tags = array();
+		$holder->tags[] = $this->factory->tag->create_and_get(array('name' => 'Tag 1'));
+		$holder->tags[] = $this->factory->tag->create_and_get(array('name' => 'Tag 2'));
+		$holder->tags[] = $this->factory->tag->create_and_get(array('name' => 'Tag 3'));
+
+		$holder->posts = array();
+		$holder->posts[] = $this->factory->post->create_and_get(array( 'post_title' => 'Test page 1', 'post_type'  => 'page'));
+		$holder->posts[] = $this->factory->post->create_and_get(array( 'post_title' => 'Test post 1', 'post_type'  => 'post'));
+		$holder->posts[] = $this->factory->post->create_and_get(array( 'post_title' => 'Test post 2', 'post_type'  => 'post'));
+		$holder->posts[] = $this->factory->post->create_and_get(array( 'post_title' => 'Test post 3', 'post_type'  => 'post'));
+
+
+		return $holder;
+	}
+
 }

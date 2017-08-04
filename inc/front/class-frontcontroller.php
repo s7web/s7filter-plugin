@@ -49,7 +49,7 @@ class FrontController extends BaseController {
 	 *
 	 * @return array
 	 */
-	private function buildQuery( $page_id, $settings, $params ) {
+	public function buildQuery( $page_id, $settings, $params ) {
 
 		$args = array();
 
@@ -94,7 +94,7 @@ class FrontController extends BaseController {
 			$args['posts_per_page'] = $per_page;
 		}
 
-		return $args;
+		return new \WP_Query( $args );
 	}
 
 	/**
@@ -110,9 +110,7 @@ class FrontController extends BaseController {
 		$settings = get_page_settings_by_id( $page_id );
 		$params   = $this->get( 'params' );
 
-		$args = $this->buildQuery( $page_id, $settings, $params );
-		
-		$query  = new \WP_Query( $args );
+		$query  = $this->buildQuery( $page_id, $settings, $params );
 		$output = array();
 		$output['selected'] = array();
 		if ( $query->have_posts() ) {
