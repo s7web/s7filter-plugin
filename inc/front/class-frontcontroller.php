@@ -1,9 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: nenadpaic
- * Date: 8/1/17
- * Time: 11:32 AM
+ * FrontController handler of requests
+ * 
+ * @package S7designFilter
  */
 
 namespace S7designFilter\Front;
@@ -11,6 +10,11 @@ namespace S7designFilter\Front;
 
 use S7designFilter\Common\BaseController;
 
+/**
+ * Class FrontController
+ *
+ * @package S7designFilter\Front
+ */
 class FrontController extends BaseController {
 
 	/**
@@ -93,6 +97,13 @@ class FrontController extends BaseController {
 		return $args;
 	}
 
+	/**
+	 * Provide filtered posts
+	 *
+	 * Function handler of front requests, used to provide posts based on current query
+	 *
+	 * @return void
+	 */
 	public function provide_data() {
 
 		$page_id  = (int) $this->get( 'page_id' );
